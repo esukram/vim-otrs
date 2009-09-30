@@ -1,5 +1,6 @@
 after/
 autoload/
+colors/
 convertSnip.py
 doc/
 ftplugin/
