@@ -1,3 +1,6 @@
 [submodule "snipmate.vim.git"]
 	path = snipmate.vim.git
 	url = git://github.com/esukram/snipmate.vim.git
+[submodule "vim-perl.git"]
+	path = vim-perl.git
+	url = git://github.com/esukram/vim-perl.git
