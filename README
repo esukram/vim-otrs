@@ -2,5 +2,9 @@ This project is a collection of usefull vim-plugins as submodules.
 
 It contains an automated linking mechanism.
 
+Usage:
+- After cloning this repository run '$ git submodule init' to register the submodules.
+- To clone the repositories run '$ git submodule update'.
+- Run '$ perl bin/link.pl' to create symlinks from submodules.
 
 Have fun!
