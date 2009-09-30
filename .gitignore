@@ -1,0 +1,8 @@
+after/
+autoload/
+convertSnip.py
+doc/
+ftplugin/
+plugin/
+snippets
+syntax/
