@@ -89,7 +89,7 @@ map {
     }
 } @repo_root;
 
-# create directories and symlinks
+# create directories and links
 link_submodule(\@submodules_entries);
 
 # return true
@@ -138,12 +138,12 @@ sub link_submodule {
             mkpath($submodule_directory) if !-d $submodule_directory;
         } @{ $submodule->{directory} };
 
-        # create symlinks
+        # create hardlinks
         map {
             my $submodule_file = $_;
-            my $symlink_target = $_;
-            $symlink_target =~ s{$submodule->{name}/}{}xms;
-            symlink $submodule_file, $symlink_target if !-e $symlink_target;
+            my $link_target = $_;
+            $link_target =~ s{$submodule->{name}/}{}xms;
+            link $submodule_file, $link_target if !-e $link_target;
         } @{ $submodule->{files} };
     }
 } # end link_submodule
