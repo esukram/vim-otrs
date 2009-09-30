@@ -40,8 +40,8 @@ open(my $fh_submodules,
 
 while (my $submodule = <$fh_submodules>) {
     chomp $submodule;
-    $submodule =~ m{(-[a-z0-9]+)\s+(.+)}xms;
-    push @submodules, $2;
+    $submodule =~ m{\A(-|\s+)([a-z0-9]+)\s*(.+)\z}xms;
+    push @submodules, $3;
 }
 close $fh_submodules;
 
