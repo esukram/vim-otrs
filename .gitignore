@@ -3,6 +3,8 @@ autoload/
 convertSnip.py
 doc/
 ftplugin/
+gvimrc
 plugin/
 snippets
 syntax/
+vimrc
