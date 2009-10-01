@@ -7,3 +7,6 @@
 [submodule "taglist.vim.git"]
 	path = taglist.vim.git
 	url = git://github.com/esukram/taglist.vim.git
+[submodule "autocomplpop.vim.git"]
+	path = autocomplpop.vim.git
+	url = git://github.com/esukram/autocomplpop.vim.git
