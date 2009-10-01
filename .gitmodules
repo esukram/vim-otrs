@@ -4,3 +4,6 @@
 [submodule "vim-perl.git"]
 	path = vim-perl.git
 	url = git://github.com/esukram/vim-perl.git
+[submodule "taglist.vim.git"]
+	path = taglist.vim.git
+	url = git://github.com/esukram/taglist.vim.git
