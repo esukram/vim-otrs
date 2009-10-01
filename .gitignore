@@ -8,4 +8,5 @@ gvimrc
 plugin/
 snippets
 syntax/
+tmp/
 vimrc
