@@ -9,16 +9,16 @@ use File::Path;
 use utf8;
 
 my %cmds = (
-    'cd' => 'cd',
+    'cd'  => 'cd',
     'git' => 'git',
 );
 
 my %git_sub_cmds = (
-    'get_root' => 'rev-parse --show-cdup',
+    'get_root'       => 'rev-parse --show-cdup',
     'get_submodules' => 'submodule',
 );
 
-my @root_files = qw(LICENSE README .gitmodules);
+my @root_files       = qw(LICENSE README .gitmodules);
 my @root_directories = qw(.git bin);
 
 # get relative path in git repo
@@ -33,14 +33,15 @@ if ($git_root) {
 
 # get submodules
 my @submodules = ();
-open(my $fh_submodules,
+open(
+    my $fh_submodules,
     "-|:encoding(UTF-8)",
-     "$cmds{git} $git_sub_cmds{get_submodules}"
+    "$cmds{git} $git_sub_cmds{get_submodules}"
 ) or die "Unable";
 
-while (my $submodule = <$fh_submodules>) {
+while ( my $submodule = <$fh_submodules> ) {
     chomp $submodule;
-    my (undef, $submodule_sha, $submodule_name, undef) =
+    my ( undef, $submodule_sha, $submodule_name, undef ) =
         $submodule =~ m{\A(-|\s+)([a-z0-9]+)\s+([^\s]+)(.*)\z}xms;
     push @submodules, $submodule_name;
 }
@@ -62,39 +63,38 @@ for my $submodule (@submodules) {
 my @repo_root = glob '*';
 
 # strip out static directories
-@repo_root =  grep {
+@repo_root = grep {
     my $directory = $_;
     !grep { $directory eq $_ } @root_directories
 } @repo_root;
 
 # strip out static files
-@repo_root =  grep {
+@repo_root = grep {
     my $directory = $_;
     !grep { $directory eq $_ } @root_files
 } @repo_root;
 
 # strip out submodules
-@repo_root =  grep {
+@repo_root = grep {
     my $directory = $_;
     !grep { $directory eq $_->{name} } @submodules_entries
 } @repo_root;
 
 # delete files or directories
 map {
-    if (-f $_) {
+    if ( -f $_ ) {
         unlink $_;
     }
-    elsif (-d $_) {
+    elsif ( -d $_ ) {
         rmtree $_;
     }
 } @repo_root;
 
 # create directories and links
-link_submodule(\@submodules_entries);
+link_submodule( \@submodules_entries );
 
 # return true
 exit(0);
-
 
 ########
 # subs #
@@ -103,7 +103,7 @@ sub get_submodule_directories {
     my $submodule = shift;
 
     my @directories = ();
-    my $find_dir = sub {
+    my $find_dir    = sub {
         return if -f $_;
         return if $File::Find::name =~ m{/\.git(|/)}xms;
         push @directories, $File::Find::name;
@@ -111,12 +111,12 @@ sub get_submodule_directories {
     find $find_dir, $submodule;
 
     return \@directories;
-} # end get_submodule_directories
+}    # end get_submodule_directories
 
 sub get_submodule_files {
     my $submodule = shift;
 
-    my @files = ();
+    my @files      = ();
     my $find_files = sub {
         return if -d $_;
         return if $File::Find::name =~ m{/\.git(|/)}xms;
@@ -125,12 +125,13 @@ sub get_submodule_files {
     find $find_files, $submodule;
 
     return \@files;
-} # end get_submodule_files
+}    # end get_submodule_files
 
 sub link_submodule {
     my $submodules = shift;
 
     for my $submodule (@$submodules) {
+
         # create directories
         map {
             my $submodule_directory = $_;
@@ -141,9 +142,9 @@ sub link_submodule {
         # create hardlinks
         map {
             my $submodule_file = $_;
-            my $link_target = $_;
+            my $link_target    = $_;
             $link_target =~ s{$submodule->{name}/}{}xms;
             link $submodule_file, $link_target if !-e $link_target;
         } @{ $submodule->{files} };
     }
-} # end link_submodule
+}    # end link_submodule
