@@ -135,7 +135,8 @@ sub link_submodule {
         # create directories
         map {
             my $submodule_directory = $_;
-            $submodule_directory =~ s{$submodule->{name}/}{}xms;
+            my $submodule_name = $submodule->{name};
+            $submodule_directory =~ s{$submodule_name/}{}xms;
             mkpath($submodule_directory) if !-d $submodule_directory;
         } @{ $submodule->{directory} };
 
@@ -143,7 +144,8 @@ sub link_submodule {
         map {
             my $submodule_file = $_;
             my $link_target    = $_;
-            $link_target =~ s{$submodule->{name}/}{}xms;
+            my $submodule_name = $submodule->{name};
+            $link_target =~ s{$submodule_name/}{}xms;
             link $submodule_file, $link_target if !-e $link_target;
         } @{ $submodule->{files} };
     }
