@@ -10,3 +10,9 @@
 [submodule "autocomplpop.vim.git"]
 	path = autocomplpop.vim.git
 	url = git://github.com/esukram/autocomplpop.vim.git
+[submodule "nerdtree.git"]
+	path = nerdtree.git
+	url = git://github.com/scrooloose/nerdtree.git
+[submodule "syntastic.git"]
+	path = syntastic.git
+	url = git://github.com/scrooloose/syntastic.git
